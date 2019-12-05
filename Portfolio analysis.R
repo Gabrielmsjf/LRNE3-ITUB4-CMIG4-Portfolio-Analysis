@@ -59,24 +59,24 @@ Cemig_rets <- na.omit(ROC(Cemig_x[,4]))
 Portfolio_Returns <- cbind(Renner_rets, Cemig_rets, Itau_rets)["2006::"]
 rename(Portfolio_Returns, c("Renner", "Cemig", "Itau"), c("close", "close.1", "close.2"))
 weights <- c( .25, .50, .25)
-Portfolio_return <- Return.portfolio(Portfolio_Returns, weights = weights, geometric = FALSE)
+Portfolio_return <- Return.portfolio(Portfolio_Returns, weights = weights)
 
-charts.PerformanceSummary(Portfolio_return, main = "Portfolio Performance", geometric = FALSE)
+charts.PerformanceSummary(Portfolio_return, main = "Portfolio Performance")
 
 ######################### Plot returns and compare them ######################################
 
-charts.PerformanceSummary(Portfolio_return["2006::"], main = "Portfolio Performance", geometric = FALSE)
-charts.PerformanceSummary(Ibov_returns["2006::"], geometric = FALSE, main = "IBOV Performance")
+charts.PerformanceSummary(Portfolio_return["2006::"], main = "Portfolio Performance"
+charts.PerformanceSummary(Ibov_returns["2006::"], main = "IBOV Performance")
 Port_Ibov_rets <- merge(Ibov_returns["2006::"], Portfolio_return["2006::"])
 names(Port_Ibov_rets) <- c("Ibovespa", "Portfolio")
 
-chart.CumReturns(Port_Ibov_rets, legend.loc = "topleft", geometric = FALSE)
+chart.CumReturns(Port_Ibov_rets, legend.loc = "topleft")
 
 #########################Get the Portfolio ratios ################################################
 CAPM.beta(Portfolio_return["2006::"], Ibov_returns, Rf = .055/252)
 CAPM.jensenAlpha(Portfolio_return["2006::"], Ibov_returns["2006::"], Rf = .055/252)
 SharpeRatio(Portfolio_return["2006::"])
-table.AnnualizedReturns(Portfolio_return["2006::"], Rf = .055/252, geometric = FALSE)
+table.AnnualizedReturns(Portfolio_return["2006::"], Rf = .055/252)
 table.CalendarReturns(Portfolio_return["2006::"])
 SharpeRatio(Portfolio_return["2006::"], Rf = .055/252)
 
@@ -102,14 +102,14 @@ chart.EfficientFrontier(optport1,
 ########################## Visualization Optimum Portfolio based on Return ############################
 
 Optweights <- c(.35, .30, .35)
-Portfolio_return_opt <- Return.portfolio(Portfolio_Returns, Optweights, geometric = FALSE)
-charts.PerformanceSummary(Portfolio_return_opt, main = "Optimum Portfolio", geometric = FALSE)
+Portfolio_return_opt <- Return.portfolio(Portfolio_Returns, Optweights)
+charts.PerformanceSummary(Portfolio_return_opt, main = "Optimum Portfolio")
 
 ########## Create a data frame to compare Ibovespa, the Arbitrary Portfolio and Optimal Portfolio ##################
 Optport_port_Ibov <- merge(Ibov_returns["2006::"], Portfolio_return["2006::"], Portfolio_return_opt["2006::"])
 names(Optport_port_Ibov) <- c("Optimum Portfolio", "Portfolio", "Optimum Portfolio")
 
-chart.CumReturns(Optport_port_Ibov, legend.loc = "topleft", geometric = FALSE)
+chart.CumReturns(Optport_port_Ibov, legend.loc = "topleft")
 
 
 ######################## Build a rebalancing Portfolio and compare all of then with IBOV ############## 
@@ -146,9 +146,9 @@ opt1_returns <- Return.portfolio(Portfolio_Returns, Opt_weights)
 rets_portfolios <- cbind(rebal_returns, opt1_returns, Portfolio_return, Ibov_returns)["2006::"]
 names(rets_portfolios) <- c("Rebal_portfolio", "Optimal_Portfolio", "Portfolio", "Ibovespa")
 charts.PerformanceSummary(rets_portfolios, main = "Returns over time")
-charts.PerformanceSummary(rebal_returns, geometric = FALSE)
-charts.PerformanceSummary(opt1_returns, geometric = FALSE)
-charts.PerformanceSummary(Portfolio_return, geometric = FALSE)
-charts.PerformanceSummary(Ibov_returns, geometric = FALSE)
+charts.PerformanceSummary(rebal_returns)
+charts.PerformanceSummary(opt1_returns)
+charts.PerformanceSummary(Portfolio_return)
+charts.PerformanceSummary(Ibov_returns)
 
 

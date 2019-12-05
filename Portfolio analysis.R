@@ -7,8 +7,6 @@ library(tidyverse)
 library(lubridate)
 
 ###########################Get the Data#######################################################################
-getwd()
-setwd("/home/gabriel/Finance/R - financial analysis/carteira - itau-renner-cemig")
 Itau <- read.csv("ITUB4 Historical Data.csv")
 IBOV <- read.csv("Bovespa Historical Data.csv")
 Renner <- read.csv("LREN3 Historical Data.csv")
